@@ -11,6 +11,7 @@ import '../../providers/profile_provider.dart';
 import '../../models/profile_model.dart';
 import '../../utils/constants.dart';
 import '../../utils/permission_helper.dart';
+import '../../utils/size_config.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -160,6 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -176,21 +178,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           final profile = profileProvider.profile;
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(AppConstants.defaultPadding),
+            padding: EdgeInsets.all(getProportionateScreenWidth(AppConstants.defaultPadding)),
             child: Column(
               children: [
                 // Profile Picture Section
                 _buildProfilePictureSection(profile, profileProvider),
-                const SizedBox(height: AppConstants.largePadding),
+                SizedBox(height: getProportionateScreenHeight(AppConstants.largePadding)),
 
                 // Profile Info Section
                 if (profile != null) ...[
                   _buildProfileInfoSection(profile),
-                  const SizedBox(height: AppConstants.largePadding),
+                  SizedBox(height: getProportionateScreenHeight(AppConstants.largePadding)),
 
                   // Document Section
                   _buildDocumentSection(profile, profileProvider),
-                  const SizedBox(height: AppConstants.largePadding),
+                  SizedBox(height: getProportionateScreenHeight(AppConstants.largePadding)),
 
                   // Edit Profile Button
                   ElevatedButton.icon(
@@ -227,34 +229,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Stack(
           children: [
             CircleAvatar(
-              radius: 60,
+              radius: getProportionateScreenWidth(60),
               backgroundColor: Colors.grey[300],
               backgroundImage: profile?.photoURL != null &&
                       profile!.photoURL!.isNotEmpty
                   ? CachedNetworkImageProvider(profile.photoURL!)
                   : null,
               child: profile?.photoURL == null || profile!.photoURL!.isEmpty
-                  ? const Icon(Icons.person, size: 60, color: Colors.grey)
+                  ? Icon(Icons.person, size: getProportionateScreenWidth(60), color: Colors.grey)
                   : null,
             ),
             if (profileProvider.isUploading)
-              const Positioned.fill(
+              Positioned.fill(
                 child: CircleAvatar(
-                  radius: 60,
+                  radius: getProportionateScreenWidth(60),
                   backgroundColor: Colors.black54,
-                  child: CircularProgressIndicator(color: Colors.white),
+                  child: const CircularProgressIndicator(color: Colors.white),
                 ),
               ),
             Positioned(
               bottom: 0,
               right: 0,
               child: CircleAvatar(
-                radius: 18,
+                radius: getProportionateScreenWidth(18),
                 backgroundColor: AppConstants.primaryColor,
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.camera_alt,
-                    size: 18,
+                    size: getProportionateScreenWidth(18),
                     color: Colors.white,
                   ),
                   onPressed: profileProvider.isUploading
@@ -265,7 +267,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ],
         ),
-        const SizedBox(height: AppConstants.smallPadding),
+        SizedBox(height: getProportionateScreenHeight(AppConstants.smallPadding)),
         Text(
           profile?.name ?? 'No Name',
           style: Theme.of(
@@ -279,7 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildProfileInfoSection(ProfileModel profile) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(AppConstants.defaultPadding),
+        padding: EdgeInsets.all(getProportionateScreenWidth(AppConstants.defaultPadding)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -289,7 +291,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: AppConstants.defaultPadding),
+            SizedBox(height: getProportionateScreenHeight(AppConstants.defaultPadding)),
             _buildInfoRow('Name', profile.name),
             _buildInfoRow('Email', profile.email),
             _buildInfoRow('Age', profile.age.toString()),
@@ -301,12 +303,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(4)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 80,
+            width: getProportionateScreenWidth(80),
             child: Text(
               '$label:',
               style: const TextStyle(fontWeight: FontWeight.w500),
@@ -324,7 +326,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(AppConstants.defaultPadding),
+        padding: EdgeInsets.all(getProportionateScreenWidth(AppConstants.defaultPadding)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -334,7 +336,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: AppConstants.defaultPadding),
+            SizedBox(height: getProportionateScreenHeight(AppConstants.defaultPadding)),
             if (profile.documents.isNotEmpty) ...[
               ListView.builder(
                 shrinkWrap: true,
@@ -361,16 +363,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ] else ...[
               const Text('No documents uploaded'),
             ],
-            const SizedBox(height: AppConstants.defaultPadding),
+            SizedBox(height: getProportionateScreenHeight(AppConstants.defaultPadding)),
             ElevatedButton.icon(
               onPressed: profileProvider.isUploading
                   ? null
                   : _pickAndUploadDocument,
               icon: profileProvider.isUploading
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                  ? SizedBox(
+                      width: getProportionateScreenWidth(16),
+                      height: getProportionateScreenWidth(16),
+                      child: const CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.upload_file),
               label: const Text('Upload Document'),
@@ -384,27 +386,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildCreateProfileSection(AuthProvider authProvider) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(AppConstants.defaultPadding),
+        padding: EdgeInsets.all(getProportionateScreenWidth(AppConstants.defaultPadding)),
         child: Column(
           children: [
-            const Icon(
+            Icon(
               Icons.person_add,
-              size: 64,
+              size: getProportionateScreenWidth(64),
               color: AppConstants.primaryColor,
             ),
-            const SizedBox(height: AppConstants.defaultPadding),
+            SizedBox(height: getProportionateScreenHeight(AppConstants.defaultPadding)),
             Text(
               'Create Your Profile',
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: AppConstants.smallPadding),
+            SizedBox(height: getProportionateScreenHeight(AppConstants.smallPadding)),
             const Text(
               'Complete your profile to get started',
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: AppConstants.defaultPadding),
+            SizedBox(height: getProportionateScreenHeight(AppConstants.defaultPadding)),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
