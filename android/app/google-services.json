@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "768850852696",
+    "project_id": "brand-a21e2",
+    "storage_bucket": "brand-a21e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768850852696:android:79af794a6bf2a8fd70432d",
+        "android_client_info": {
+          "package_name": "com.example.job_scraper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl1NYOR4IKxjgyw9ZAHk_mBgJikEdWlaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768850852696:android:f67748341ff014d370432d",
+        "android_client_info": {
+          "package_name": "com.example.resturent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl1NYOR4IKxjgyw9ZAHk_mBgJikEdWlaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768850852696:android:a783d0ecfbd9d16570432d",
+        "android_client_info": {
+          "package_name": "com.example.task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl1NYOR4IKxjgyw9ZAHk_mBgJikEdWlaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
